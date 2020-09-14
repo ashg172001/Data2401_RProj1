@@ -17,12 +17,9 @@ library(datasauRus)
 
 ### Exercise 1
 
-(Type your answer to Exercise 1 here. This exercise does not require any R code. **Remove notes like this in the final product that you turn in**)
+The datasaurus_dozen file has 1846 rows and 3 columns. It includes a total of 3 variables which are the dataset (labels from which dataset the data is taken from), x (x-values) and y(y-values).
 
 ### Exercise 2
-
-(The answers for this Exercise are given for you below. But you should clean up some of the narrative so that it only includes what you want to turn in.)
-
 First let's plot the data in the dino dataset:
 
 ```{r plot-dino, fig.height=3, fig.width=6}
@@ -41,21 +38,23 @@ dino_data %>%
 
 ### Exercise 3
 
-(Add code and narrative as needed. Note that the R chunks are labeled with `plot-star` and `cor-star` to provide spaces to place the code for plotting and calculating the correlation coefficient. To finish, remember to clean up the narrative by removing these instructions.)
-
-
+Now, we will reuse the code chunk in lines 26-29 in order to plot the x vs. y for the "star" dataset, and visualize the correlation between the two variables for the star dataset.
 
 ```{r plot-star}
-
+dino_data <- datasaurus_dozen %>%
+  filter(dataset == "star")
+ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
+  geom_point()
 
 ```
 
-I'm some text, you should replace me with more meaningful text...
+Next, we can calculate "r" (the correlation coefficient) for the "star" data set to see how it compares to that of the "dino" dataset from Exercise 2.
  
 ```{r cor-star}
-
-
+dino_data %>%
+  summarize(r = cor(x, y))
 ```
+Through this calculation, we can see that the r value between x and y in the "star" dataset is slightly closer to -1 that of  x and y from the "dino" dataset. Remember, both datasets show a negative r-value (correlation coefficient) between x and y, however, one is closer to -1 than the other. Since the r value from the "star" dataset is closer to -1, this means the negative correlation between x and y in the "star" dataset is stronger than within the "dino" dataset.
 
 ### Exercise 4
 
