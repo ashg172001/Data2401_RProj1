@@ -54,21 +54,23 @@ Next, we can calculate "r" (the correlation coefficient) for the "star" data set
 dino_data %>%
   summarize(r = cor(x, y))
 ```
-Through this calculation, we can see that the r value between x and y in the "star" dataset is slightly closer to -1 that of  x and y from the "dino" dataset. Remember, both datasets show a negative r-value (correlation coefficient) between x and y, however, one is closer to -1 than the other. Since the r value from the "star" dataset is closer to -1, this means the negative correlation between x and y in the "star" dataset is stronger than within the "dino" dataset.
+Through this calculation, we can see that the r value between x and y in the "dino" dataset is slightly closer to -1 that of  x and y from the "star" dataset. Remember, both datasets show a negative r-value (correlation coefficient) between x and y, however, one is closer to -1 than the other. Since the r value from the "dino" dataset is closer to -1, this means the negative correlation between x and y in the "dino" dataset is stronger than within the "star" dataset.
 
 ### Exercise 4
-
-(Add code and narrative as needed. Note that two R chunks are given but they are not labeled. Use the convention from above to name them appropriately.)
-
-```{r}
-
-
-```
+Again, we will reuse the code chunk in lines 26-29 in order to plot the x vs. y for the "circle" dataset, and visualize the correlation between the two variables for this new dataset.
 
 ```{r}
-
-
+dino_data <- datasaurus_dozen %>%
+  filter(dataset == "circle")
+ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
+  geom_point()
 ```
+Next, we jsut reuse the code for summarizing the correlation coefficient in order to find that correlation factor for the x and y values in the "circle" dataset.
+```{r}
+dino_data %>%
+  summarize(r = cor(x, y))
+```
+If we compare "r" for the circle dataset, we see that it is closer to -1 than that of the "dino" dataset. So, in this case the negative correlation between x and y within the circle dataset is stronger than the one between x and y in the "dino" dataset.
 
 ### Exercise 5
 
