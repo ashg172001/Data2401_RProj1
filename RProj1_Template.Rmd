@@ -2,18 +2,19 @@
 title: "R Project 1 - Hello R"
 author: "Ashly Garcia"
 date: "9/16/2020"
-output: html_document
+output: 
+  html_document: 
+    fig_width: 10
+    fig_height: 8
+    highlight: zenburn
+    theme: spacelab
 ---
-
-MAKE SURE YOU READ AND FOLLOW **ALL** INSTRUCTIONS ON THE INSTRUCTION DOCUMENT. 
-
 ### Load packages
 
 ```{r load-packages, message=FALSE}
 library(tidyverse) 
 library(datasauRus)
 ```
-
 
 ### Exercise 1
 
@@ -65,13 +66,32 @@ dino_data <- datasaurus_dozen %>%
 ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
   geom_point()
 ```
-Next, we jsut reuse the code for summarizing the correlation coefficient in order to find that correlation factor for the x and y values in the "circle" dataset.
+
+Next, we just reuse the code for summarizing the correlation coefficient in order to find that correlation factor for the x and y values in the "circle" dataset.
+
 ```{r}
 dino_data %>%
   summarize(r = cor(x, y))
 ```
+
 If we compare "r" for the circle dataset, we see that it is closer to -1 than that of the "dino" dataset. So, in this case the negative correlation between x and y within the circle dataset is stronger than the one between x and y in the "dino" dataset.
 
 ### Exercise 5
 
-(Add code and narrative as needed. To add R chunks either type out the backticks, curly braces, and the letter `r` or use the Insert chunk button above, with the green +C.)
+Finally, let's wrap everything together into a set of panels that will plot x vs. y for all of our different datasets using the following code for faceting,
+
+```{r}
+ggplot(datasaurus_dozen, aes(x = x, y = y, color = dataset))+
+geom_point()+
+facet_wrap(~ dataset, ncol = 3) + # facet the dataset variable, in 3 cols
+theme(legend.position = "none")
+```
+
+Now to really end it all, we can use the group_by function in order to compile all of the summarized "r" values of our different datasets.
+
+```{r}
+datasaurus_dozen %>%
+group_by(dataset) %>%
+summarize(r = cor(x, y)) %>%
+print(13)
+```
